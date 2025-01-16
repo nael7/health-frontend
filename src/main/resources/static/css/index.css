@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+/** 스크롤바 제거*/
+html, body {
+	overflow: hidden;
+}
+
+/** 톱니바퀴(setting 부분)*/
+.settings-popover {
+    position: relative;
+    padding: 0;
+    height: 1.875rem;
+    width: 1.875rem;
+    left: 0;
+}
+
+
+/* tab 영역*/
+.dhxtabbar_base_dhx_web div.dhx_cell_tabbar div.dhx_cell_cont_tabbar {
+    border-left: 0px; 
+    border-right: 0px;
+    border-bottom: 0px;
+    padding: 0px;
+    
+}
+
+/* 선택된 탭 색상*/
+.dhxtabbar_base_dhx_web div.dhx_cell_tabbar {
+    background-color: #edf2f9;
+    
+}
+/* 선택된 탭 body 색상*/
+.dhxtabbar_base_dhx_web div.dhxtabbar_tabs div.dhxtabbar_tab.dhxtabbar_tab_actv, .dhxtabbar_base_dhx_web div.dhxtabbar_tabs div.dhxtabbar_tab.dhxtabbar_tab_actv_dis {
+    background-color:#edf2f9;
+}
+
+/* 탭라인 백그라운드 색상*/
+.dhxtabbar_base_dhx_web div.dhxtabbar_tabs {
+    background-color: #0b78cd;
+}
+
+/* 선택되지 않는 탭 색상*/
+.dhxtabbar_base_dhx_web div.dhxtabbar_tabs div.dhxtabbar_tab {
+    background-color: #0357af;
+    border-left: 2px solid #0b78cd;
+    border-right: 2px solid #0b78cd;
+}
