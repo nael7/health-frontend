@@ -33,6 +33,7 @@ const board = function(){
             },
             {binding:'boaDate',header:'등록일자',width:110,dataType:'Date',align:'center'},
             {binding:'name',header:'작성자',width:110,dataType:'String',align:'center'},
+            {binding:'traName',header:'담당트레이너',width:110,dataType:'String',align:'center'},
             {binding:'boaStatus',header:'상태',width:70,dataType:'String',align:'center',dataMap:dataMapStatus,
                 cellTemplate: (ctx)=>{
                     let color = "secondary";

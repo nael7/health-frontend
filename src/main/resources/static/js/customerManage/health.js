@@ -117,7 +117,7 @@ const health = function(){
         let columnsDefinition = [
             {binding:'hexDate',header:'등록일',width:150,dataType:'Date',align:'center', allowMerging:true,},
             // {binding:'hexIndte',header:'등록시간',width:100,dataType:'Date',align:'center', format:'tt hh:mm'},
-            {binding:'hemName',header:'프로그램',width:170,dataType:'String',align:'center'},
+            {binding:'hemName',header:'프로그램',width:170,dataType:'String',align:'center',allowMerging:true},
             {binding:'hedExecise',header:'종목',width:150,dataType:'String',align:'center'},
             {binding:'hedBody',header:'신체부위',width:150,dataType:'String',align:'center'},
             {binding:'hedCycle',header:'루틴',width:150,dataType:'String',align:'center'},
