@@ -40,3 +40,17 @@ export const getTrainerList = ()=>{
     
 }
 
+/**
+ * 공통코드 내역
+ * @param {String} 공통코드 
+ * @param {*} callback 
+ */
+export const getCommonCode = (groupCode)=>{
+    let params = {
+        uri:`code-manage/common-codes/${groupCode}`,        
+        unLock:true //lock 안걸린 코드만
+    };
+
+    return getAjax(params,false);
+}
+

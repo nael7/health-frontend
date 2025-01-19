@@ -13,6 +13,11 @@ const board = function(){
     let searchStartdat = input.date('#searchStartdat',dateUtils.firstDayOfThisMonth('YYYY-MM-DD'));
     let searchEnddat = input.date('#searchEnddat',dateUtils.lastDayOfThisMonth('YYYY-MM-DD'));
     
+    //페이지 권한
+    let dataParams = $('#data-params').data('params');
+    const authrity = {ins:dataParams.athIns,del:dataParams.athDel};
+    
+    
     /**
      * 운동프로그램 차트 초기화
      */

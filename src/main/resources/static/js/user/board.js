@@ -12,8 +12,8 @@ const board = function(){
     let grid = new GridFactory('#grid');
     let searchStartdat = input.date('#searchStartdat');
     let searchEnddat = input.date('#searchEnddat');
-    let arrayStatus = [{'key':'N','name':'대기중'},{'key':'R','name':'진행중'},{'key':'Y','name':'완료료'}];
-    let boaStatus = input.comboBox('#boaStatus',arrayStatus,'key','name');
+    //let arrayStatus = [{'key':'N','name':'대기중'},{'key':'R','name':'진행중'},{'key':'Y','name':'완료'}];
+    let boaStatus = input.comboBox('#boaStatus',[],'codCode','codName');
     let fileUpload = $('#attach-file').get(0).dropzone;
     let userInfo={};
     
@@ -21,7 +21,7 @@ const board = function(){
      * 그리드 초기화
      */
     const gridInit = ()=>{
-        let dataMapStatus =  new wijmo.grid.DataMap([{key:'N',name:'대기'},{key:'R',name:'진행'},{key:'Y',name:'완료'}], 'key', 'name');
+        // let dataMapStatus =  new wijmo.grid.DataMap([{key:'N',name:'대기'},{key:'R',name:'진행'},{key:'Y',name:'완료'}], 'key', 'name');
         let columnsDefinition = [
             
             {binding:'mobile',visible:false,width:'*'},
@@ -34,7 +34,7 @@ const board = function(){
             {binding:'boaDate',header:'등록일자',width:110,dataType:'Date',align:'center'},
             {binding:'name',header:'작성자',width:110,dataType:'String',align:'center'},
             {binding:'traName',header:'담당트레이너',width:110,dataType:'String',align:'center'},
-            {binding:'boaStatus',header:'상태',width:70,dataType:'String',align:'center',dataMap:dataMapStatus,
+            {binding:'boaStatus',header:'상태',width:70,dataType:'String',align:'center',//dataMap:dataMapStatus,
                 cellTemplate: (ctx)=>{
                     let color = "secondary";
                     if(ctx.value=='R') color = "info";
@@ -118,7 +118,7 @@ const board = function(){
 
             //콤보박스의 selectedIndexChanged 이벤트가 걸려있는데 초기값 셋팅시에도 이벤트 호출이됨.
             //이를 막고자 update시작 종료 이벤트를 발생시키고 selectedIndexChanged이벤트에서 isUpdating 함수로 확인한다.
-            console.debug(boardInfo);
+            //console.debug(boardInfo);
             boaStatus.beginUpdate();
             boaStatus.selectedValue = boardInfo.boaStatus;
             boaStatus.endUpdate();
@@ -445,6 +445,15 @@ const board = function(){
         }
 
         gridInit();
+
+        
+        commonRestApi.getCommonCode('1001').then((data)=>{
+            let boaStatusCol = grid._flexGrid.getColumn('boaStatus');
+            boaStatusCol.dataMap = new wijmo.grid.DataMap(data['commonCodeList'],'codCode','codName');
+            boaStatus.itemsSource = data['commonCodeList'];
+        });
+
+
         
         $('#btn-search').on('click',search);
         $('.btn-add').on('click',()=>{

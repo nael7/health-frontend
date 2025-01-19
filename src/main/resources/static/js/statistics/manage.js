@@ -12,6 +12,11 @@ const manage = function(){
     let healthChart = new wijmo.chart.FlexPie('#healthChart');
     let dietChart = new wijmo.chart.FlexPie('#dietChart');
 
+    //페이지 권한
+    let dataParams = $('#data-params').data('params');
+    const authrity = {ins:dataParams.athIns,del:dataParams.athDel};
+    
+
     /**
      * 운동프로그램 차트 초기화
      */
