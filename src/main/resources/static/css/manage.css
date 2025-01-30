@@ -1,0 +1,19 @@
+/* 셀병합시 셀데이터 valign 가운데 정렬*/
+/* 셀병합시 셀데이터 valign을 가운데 정렬되도록 해줘 display:flex 사용하지말고*/
+
+.wj-flexgrid .wj-cell {
+    display: flex;
+    align-items: center;
+}
+
+.wj-flexgrid .wj-cell.wj-align-center {
+    justify-content: center; 
+}
+
+.wj-flexgrid .wj-cell.wj-align-right {
+    justify-content: flex-end; 
+}
+
+.wj-flexgrid .wj-cell.wj-align-left {
+    justify-content: flex-start; 
+} 

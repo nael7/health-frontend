@@ -274,27 +274,6 @@
     align-items: center;
 }
 
-/* 셀병합시 셀데이터 valign 가운데 정렬*/
-.wj-flexgrid .wj-cell {
-    display: flex;
-    align-items: center;
-    
-}
-/*  위 .wj-flexgrid .wj-cell  클래스 사용시 컬럼 align 속성이 안먹힘(flex속성때문에)
-    아래 center,right,left 클래스를 재정의하여 justify-content를 추가함.
-*/
-.wj-cell.wj-align-center {
-    justify-content: center; 
-}
-
-.wj-cell.wj-align-right {
-    justify-content: right; 
-}
-
-.wj-cell.wj-align-left {
-    justify-content: left; 
-}
-
 
 /* 컬럼 선택기 4칸으로 지정해서 표현*/
 .wj-listbox.column-picker {

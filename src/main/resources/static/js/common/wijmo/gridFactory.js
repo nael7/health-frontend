@@ -1516,10 +1516,28 @@ export default class GridFactory{
         }
 	 */
 	setNewRowDefault(getDefaultItem){
-	  this._flexCv.newItemCreator = (t)=>{
-		return getDefaultItem();
-	  }
+		this._flexCv.newItemCreator = (t)=>{
+			return getDefaultItem();
+	  	}
     }
+
+	/**
+	 * 병합된 셀 가운데 정렬
+	 * @param {*} arrayCol 
+	 */
+	mergeCellAlignCenter(arrayCol){
+		this._flexGrid.formatItem.addHandler((s,e)=>{
+			if(e.panel.cellType == wijmo.grid.CellType.Cell){
+				if(arrayCol.includes(s.columns[e.col].binding)){
+					wijmo.setCss(e.cell,{
+						display:'flex',
+						justifyContent:'center',
+						alignItems:'center'
+					});
+				}
+			}		
+		});
+	}
 }
 
 /**

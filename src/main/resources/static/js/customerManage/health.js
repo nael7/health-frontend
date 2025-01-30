@@ -128,6 +128,12 @@ const health = function(){
         healthGrid.setColumnsDefinition(columnsDefinition);
         healthGrid.setDynamicHeight(550);
         healthGrid.isReadOnly();
+        healthGrid.mergeCellAlignCenter(['hexDate','hemName']);
+        /**
+         * 특정 열의 셀 값이 같을경우 allowMerging = true인 셀에 한해 세로 병합
+         */
+        healthGrid._flexGrid.mergeManager = new RestrictedMergeManager();
+        
         
     }
     /**
@@ -201,6 +207,8 @@ const health = function(){
     }
 
     
+
+    
     return{
         init:()=>{
             handleEvent();
@@ -210,6 +218,43 @@ const health = function(){
     }
 }();
 
+
+class RestrictedMergeManager extends wijmo.grid.MergeManager{
+    getMergedRange(panel,r,c,clip = true){
+        let rng = new wijmo.grid.CellRange(r,c);
+        let col = panel.columns[c];
+
+        // alloMerging = true 인 컬럼만 병합
+        if (col.allowMerging){
+            
+            let val = panel.getCellData(r, 'hexDate', true);        //고객번호
+            let pval = panel.getCellData(r, c, true);
+            
+            // expand up
+            while (rng.row > 0 &&
+                panel.getCellData(rng.row - 1, 'hexDate', true) == val &&
+                panel.getCellData(rng.row - 1, c, true) == pval) {
+                rng.row--;
+            }
+            
+            // expand down
+            while (rng.row2 < panel.rows.length - 1 &&
+                panel.getCellData(rng.row2 + 1, 'hexDate', true) == val &&
+                panel.getCellData(rng.row2 + 1, c, true) == pval) {
+                rng.row2++;
+            }
+        } 
+        
+        // 병합된 셀이 하나라면 null반환
+        if (rng.isSingleCell) {
+            rng = null;
+        }
+
+        return rng;
+        
+    }
+    
+}
 
 $(()=>{
     health.init();

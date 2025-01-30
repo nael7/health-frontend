@@ -116,7 +116,7 @@ const diet = function(){
         
         let columnsDefinition = [
             {binding:'dexDate',header:'등록일',width:100,dataType:'Date',align:'center', allowMerging:true,},
-            {binding:'dimName',header:'프로그램',width:170,dataType:'String',align:'center'},
+            {binding:'dimName',header:'프로그램',width:170,dataType:'String',align:'center', allowMerging:true,},
             {binding:'didMeal',header:'식사',width:70,dataType:'String',align:'center'},
             {binding:'didMenu',header:'추천메뉴',width:200,dataType:'String',align:'center'},
             {binding:'dexMenu',header:'실제메뉴',width:200,dataType:'String',align:'center'},
@@ -127,6 +127,12 @@ const diet = function(){
         dietGrid.setColumnsDefinition(columnsDefinition);
         dietGrid.setDynamicHeight(550);
         dietGrid.isReadOnly();
+        dietGrid.mergeCellAlignCenter(['dexDate','dimName']);
+        /**
+         * 특정 열의 셀 값이 같을경우 allowMerging = true인 셀에 한해 세로 병합
+         */
+        dietGrid._flexGrid.mergeManager = new RestrictedMergeManager();
+        
 
         dietGrid._flexGrid.formatItem.addHandler((s,e)=>{
             if(e.panel===s.cells){
@@ -223,6 +229,43 @@ const diet = function(){
         }
     }
 }();
+
+class RestrictedMergeManager extends wijmo.grid.MergeManager{
+    getMergedRange(panel,r,c,clip = true){
+        let rng = new wijmo.grid.CellRange(r,c);
+        let col = panel.columns[c];
+
+        // alloMerging = true 인 컬럼만 병합
+        if (col.allowMerging){
+            
+            let val = panel.getCellData(r, 'dexDate', true);        //등록일자
+            let pval = panel.getCellData(r, c, true);
+            
+            // expand up
+            while (rng.row > 0 &&
+                panel.getCellData(rng.row - 1, 'dexDate', true) == val &&
+                panel.getCellData(rng.row - 1, c, true) == pval) {
+                rng.row--;
+            }
+            
+            // expand down
+            while (rng.row2 < panel.rows.length - 1 &&
+                panel.getCellData(rng.row2 + 1, 'dexDate', true) == val &&
+                panel.getCellData(rng.row2 + 1, c, true) == pval) {
+                rng.row2++;
+            }
+        } 
+        
+        // 병합된 셀이 하나라면 null반환
+        if (rng.isSingleCell) {
+            rng = null;
+        }
+
+        return rng;
+        
+    }
+    
+}
 
 
 $(()=>{

@@ -447,13 +447,6 @@ const board = function(){
         gridInit();
 
         
-        commonRestApi.getCommonCode('1001').then((data)=>{
-            let boaStatusCol = grid._flexGrid.getColumn('boaStatus');
-            boaStatusCol.dataMap = new wijmo.grid.DataMap(data['commonCodeList'],'codCode','codName');
-            boaStatus.itemsSource = data['commonCodeList'];
-        });
-
-
         
         $('#btn-search').on('click',search);
         $('.btn-add').on('click',()=>{
@@ -506,7 +499,7 @@ const board = function(){
         $(document).on('click','[data-comment-remove]',removeOfComment);
 
         boaStatus.selectedIndexChanged.addHandler((s,e)=>{
-
+            console.debug("111");
             //초기값 셋팅시 수정안함.
             if(s.isUpdating) return;
             
@@ -521,6 +514,15 @@ const board = function(){
                     pushMsg('상담상태가 수정 되었습니다.');
                 }).catch((e)=>{});
             });
+        });
+
+        //상담상태 셋팅
+        commonRestApi.getCommonCode('1001').then((data)=>{
+            let boaStatusCol = grid._flexGrid.getColumn('boaStatus');
+            boaStatusCol.dataMap = new wijmo.grid.DataMap(data['commonCodeList'],'codCode','codName');
+            boaStatus.beginUpdate();
+            boaStatus.itemsSource = data['commonCodeList'];
+            boaStatus.endUpdate();
         });
 
     }

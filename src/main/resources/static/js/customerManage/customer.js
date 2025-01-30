@@ -49,7 +49,7 @@ const customer = function(){
             {binding:'cusId',header:'아이디',width:100,dataType:'String',align:'left'},
             {binding:'cusJoindat',header:'가입일자',width:110,dataType:'Date',align:'center',editor:inputDate},
             {binding:'cusQuitdat',header:'탈퇴일자',width:110,dataType:'Date',align:'center',editor:inputDate, cssClass:'text-danger'},
-            {binding:'cusPhone',header:'전화번호',width:110,dataType:'String',align:'center',mask:'999-999-9999'},
+            {binding:'cusPhone',header:'전화번호',width:110,dataType:'String',align:'center',mask:'999-9999-9999'},
             {binding:'cusEmail',header:'이메일',width:150,dataType:'String',align:'left',maxLength:50},
             {binding:'cusHealthCode',header:'운동프로그램',width:150,dataType:'String',align:'left',maxLength:100},
             {binding:'cusDietCode',header:'식단프로그램',width:150,dataType:'String',align:'left',maxLength:100},
