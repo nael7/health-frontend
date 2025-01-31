@@ -121,6 +121,8 @@ const tabs = function(){
 
         }
 
+        $("#navbarVerticalCollapse").collapse('hide'); 
+
         resizeContents();
 
     }

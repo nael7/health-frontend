@@ -24,7 +24,7 @@
 	<springProfile name="prod">
 		<logger name="com.dreamcastle.healthfrontend" level="INFO" appender-ref="console"/>
 
-		<property name="LOG_DIR" value="C:/dreamcastle/health-frontendlogs/" />
+		<property name="LOG_DIR" value="./logs" />
 	    <property name="LOG_PATH" value="${LOG_DIR}/app.log"/>
 	    
 		<!-- Rolling File Appender -->
