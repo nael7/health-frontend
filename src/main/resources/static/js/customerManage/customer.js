@@ -30,20 +30,7 @@ const customer = function(){
         let columnsDefinition = [
             {binding:'select',header:' ',width:30,dataType:'Boolean',isRequired:false},
             {binding:'cusNo',header:'고객번호',width:100,dataType:'String',align:'center',isReadOnly:true,maxLength:20},
-            {binding:'cusName',header:'이름',width:80,dataType:'String',align:'center',maxLength:50,
-                cellTemplate:(ctx)=>{
-                    //추가버튼 누를때 신규행이 생기는데 신규행일경우 item 값이 없음.
-                    if (ctx.row instanceof wijmo.grid._NewRowTemplate) {
-                        return;
-                    }
-                    //퇴사자 중앙라인 처리
-                    let sss = ctx.value;
-                    if(!wijmo.isNullOrWhiteSpace(ctx.item.cusQuitdat)){
-                        sss = `<del class='text-danger'>${ctx.value}</del>`;
-                    }
-                    return sss;
-                }
-            },
+            {binding:'cusName',header:'이름',width:80,dataType:'String',align:'center',maxLength:50,},
             {binding:'cusBirth',header:'생년월일',width:110,dataType:'Date',align:'center',editor:inputDate},
             {binding:'cusSex',header:'성별',width:70,dataType:'String',align:'center',dataMap:dataMapSex},
             {binding:'cusId',header:'아이디',width:100,dataType:'String',align:'left'},
@@ -79,6 +66,20 @@ const customer = function(){
         grid.checkBoxColumns(["select"]);
         //grid.disableReadOnlyForAutoRows(['cusId']);
         grid.enableFrozenCol('cusName');
+        
+        grid._flexGrid.formatItem.addHandler((s,e)=>{
+            if(e.panel.cellType === wijmo.grid.CellType.Cell){
+                
+                if(e.getRow() instanceof wijmo.grid._NewRowTemplate) return;
+
+                let column = s.columns[e.col];
+                let item = s.rows[e.row].dataItem;
+                if(!wijmo.isNullOrWhiteSpace(item.cusQuitdat) && column.binding == 'cusName'){
+                    e.cell.innerHTML = `<del class='text-danger'>${item.cusName}</del>`;
+                    
+                }
+            }
+        });
 
         grid._flexCv.getError = (item,prop)=>{
             //셀수정모드 일경우 오류검증 안함 (포커스 이동이 안됨으로)
@@ -254,6 +255,7 @@ const customer = function(){
         $('#btn-add').on('click',()=>{
             grid.enableAutoRows();
             grid.moveFocus(grid.getRowCnt(),'cusName');
+            // grid.startEditMode();
         });
         $('#btn-save').on('click',saveOfCustomer);
         $('#btn-delete').on('click',deleteOfCustomer);
