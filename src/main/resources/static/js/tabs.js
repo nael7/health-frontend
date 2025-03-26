@@ -172,6 +172,18 @@ const tabs = function(){
                 if(index > 0) title = title + value;
             });
 
+            if(id.startsWith('http')){
+                let posLeft=(screen.availWidth-690)/2;	//중앙위치산출
+                let posTop=(screen.availHeight-890)/2;
+
+                window.open(id,"",
+                                `toolbar=no, location=no, directories=no, status=yes, 
+                                    menubar=no, scrollbars=yes, resizable=no, width=1000, height=${screen.availHeight-200},top=${posTop} left=${posLeft}`);
+                return;
+            }
+            
+
+            
             addTabBar(id,name,title);
 
         });
