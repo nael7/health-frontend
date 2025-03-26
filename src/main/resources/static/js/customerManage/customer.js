@@ -253,7 +253,7 @@ const customer = function(){
         $('#btn-search').on('click',search);
         $('#btn-add').on('click',()=>{
             grid.enableAutoRows();
-            grid.moveFocus(grid.getRowCnt(),'traId');
+            grid.moveFocus(grid.getRowCnt(),'cusName');
         });
         $('#btn-save').on('click',saveOfCustomer);
         $('#btn-delete').on('click',deleteOfCustomer);
