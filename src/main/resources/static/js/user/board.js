@@ -56,7 +56,8 @@ const board = function(){
             
             if(e.panel == s.cells && s.columns[e.col].binding == 'mobile'){
 
-                let value = dataMapStatus.getDisplayValue(s.rows[e.row].dataItem.boaStatus);
+                //let value = dataMapStatus.getDisplayValue(s.rows[e.row].dataItem.boaStatus);
+                let value = s.columns.getColumn('boaStatus').dataMap.getDisplayValue(s.rows[e.row].dataItem.boaStatus);
                 let color = "secondary";
                 if(s.rows[e.row].dataItem.boaStatus=='R') color = 'info';
                 if(s.rows[e.row].dataItem.boaStatus=='Y') color = 'success';
@@ -252,6 +253,16 @@ const board = function(){
      */
     const search = async ()=>{
         
+        if(!wijmo.isNullOrWhiteSpace(searchStartdat.value) && wijmo.isNullOrWhiteSpace(searchEnddat.value)){
+            alertWarning('조회불가','등록일자(종료)를 입력해주세요.',()=>searchEnddat.focus());
+            return;
+        }
+
+        if(!wijmo.isNullOrWhiteSpace(searchEnddat.value) && wijmo.isNullOrWhiteSpace(searchStartdat.value)){
+            alertWarning('조회불가','등록일자(시작)를 입력해주세요.',()=>searchStartdat.focus());
+            return;
+        }
+
         let params = {
             uri: `boards`
         }

@@ -4361,7 +4361,8 @@ var tinymceInit = function tinymceInit() {
         skin: utils.settings.tinymce.theme,
         content_style: ".mce-content-body { color: ".concat(utils.getGrays().black, " }"),
         mobile: {
-          theme: 'mobile',
+          // theme: 'mobile',
+          theme: 'silver',
           toolbar: ['undo', 'bold']
         },
         statusbar: false,

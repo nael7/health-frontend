@@ -97,13 +97,13 @@ const customer = function(){
                 case 'cusJoindat':
                     if(wijmo.isNullOrWhiteSpace(item.cusJoindat)) return '[입사일자]를 입력하세요.';
                     break;
-                case 'cusEmail':
-                    if(wijmo.isNullOrWhiteSpace(item.cusEmail)) return '[이메일]을 입력하세요.';
-                    const rgEx = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
-                    let OK = rgEx.test(item.cusEmail)
-                    if(!OK)
-                        return '[이메일]형식에 맞게 입력하세요.';
-                    break;
+                // case 'cusEmail':
+                //     if(wijmo.isNullOrWhiteSpace(item.cusEmail)) return '[이메일]을 입력하세요.';
+                //     const rgEx = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
+                //     let OK = rgEx.test(item.cusEmail)
+                //     if(!OK)
+                //         return '[이메일]형식에 맞게 입력하세요.';
+                //     break;
                 case 'cusPhone':
                     if(wijmo.isNullOrWhiteSpace(item.cusPhone)) return '[전화번호]를 입력하세요.';
                     if(!wijmo.isNullOrWhiteSpace(item.cusPhone)){
@@ -154,6 +154,8 @@ const customer = function(){
         }
 
         params = {...params,...ajax.getParams('#searchForm')};
+
+        console.debug(params);
 
         await ajax.getAjax(params,true).then(data=>{
             grid._flexCv.sourceCollection =  data['customerList'].map(item=>({

@@ -15,6 +15,12 @@ const index = function(){
     const logOut = ()=>{
         location.href ="/log-out";
     }
+
+    const isValidString = (str)=>{
+        const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~@#$!%*?&])[a-zA-Z\d~@#$!%*?&]{8,}$/ 
+        return regex.test(str);
+    }
+    
     /**
      * 비밀번호 변경
      */
@@ -28,10 +34,22 @@ const index = function(){
             alertWarning('변경불가.','기존 비밀번호를 입력해주세요.',()=>$('#oldPassword').trigger('focus'));
             return;
         }
+
         if(wijmo.isNullOrWhiteSpace(newPassword)){
             alertWarning('변경불가.','새로운 비밀번호를 입력해주세요.',()=>$('#newPassword').trigger('focus'));
             return;
         }
+
+        if(newPassword.length < 8){
+            alertWarning('변경불가.','비밀번호는 8자리 이상 입력해주세요.',()=>$('#newPassword').trigger('focus')); 
+            return;
+        }
+        
+        if(!isValidString(newPassword)){
+            alertWarning('변경불가.','비밀번호는 영문,숫자,특수문자를 혼합하여 입력해주세요.',()=>$('#newPassword').trigger('focus'));
+            return;
+        }
+
         if(wijmo.isNullOrWhiteSpace(newPasswordConfirm)){
             alertWarning('변경불가.','비밀번호 확인을 입력해주세요.',()=>$('#newPasswordConfirm').trigger('focus'));
             return;

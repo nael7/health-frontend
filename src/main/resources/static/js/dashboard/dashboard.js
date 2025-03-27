@@ -125,12 +125,14 @@ const dashboard = function(){
             uri: `dashboard/monthly/count`,
         }
         ajax.getAjax(params,true).then(data=>{
-            
+            console.debug(data);
             //전체고객수 차트
             $('#customerCount').text('0명');
             let customerCountList = data['customerCountList'];
             if(customerCountList.length > 0){
-                let increasePer = parseInt((customerCountList[0].count/customerCountList[customerCountList.length-1].count)*100);
+                console.debug(customerCountList[0].count);
+                console.debug(customerCountList[customerCountList.length-1].count);
+                let increasePer = parseInt(((customerCountList[customerCountList.length-1].count-customerCountList[0].count)/customerCountList[0].count)*100);
                 $('#customerIncreasePer').text(increasePer+'%');
                 let xdata = customerCountList.map(d=>d.date);
                 let seriesData = customerCountList.map(d=>d.count);
@@ -144,10 +146,10 @@ const dashboard = function(){
             }
             
             //상담신청건수 차트
-            $('#boardCount').text('0명');
+            $('#boardCount').text('0건');
             let boardCountList = data['boardCountList'];
             if(boardCountList.length > 0){
-                let increasePer = parseInt((boardCountList[0].count/boardCountList[boardCountList.length-1].count)*100);
+                let increasePer = parseInt(((boardCountList[boardCountList.length-1].count-boardCountList[0].count)/boardCountList[0].count)*100);
                 $('#boardIncreasePer').text(increasePer+'%');
                 let xdata = boardCountList.map(d=>d.date);
                 let seriesData = boardCountList.map(d=>d.count);
