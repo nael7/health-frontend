@@ -253,16 +253,7 @@ const board = function(){
      */
     const search = async ()=>{
         
-        if(!wijmo.isNullOrWhiteSpace(searchStartdat.value) && wijmo.isNullOrWhiteSpace(searchEnddat.value)){
-            alertWarning('조회불가','등록일자(종료)를 입력해주세요.',()=>searchEnddat.focus());
-            return;
-        }
-
-        if(!wijmo.isNullOrWhiteSpace(searchEnddat.value) && wijmo.isNullOrWhiteSpace(searchStartdat.value)){
-            alertWarning('조회불가','등록일자(시작)를 입력해주세요.',()=>searchStartdat.focus());
-            return;
-        }
-
+        
         let params = {
             uri: `boards`
         }
