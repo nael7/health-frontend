@@ -64,6 +64,8 @@ public class RestApiController {
      */
     private void isAuthority(HttpServletRequest request, String authUrl) throws Exception {
         
+        if(authUrl.equalsIgnoreCase("login")) return;   // 첫진입 login 페이지는 권한검증 안함.
+
         AuthorityDto authority =  authorityService.getAuthority(request,authUrl);
 
         if(!authority.getStatus()) throw new BusinessException("서버오류 입니다.");

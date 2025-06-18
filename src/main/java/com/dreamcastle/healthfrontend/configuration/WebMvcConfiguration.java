@@ -30,6 +30,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer{
 				.excludePathPatterns("/js/**")
 				.excludePathPatterns("/favicon.ico")
 				.excludePathPatterns("/access-denied")
+				.excludePathPatterns("/system/agents")
 				.excludePathPatterns("/rest-api");
 
 	}

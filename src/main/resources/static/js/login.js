@@ -3,6 +3,7 @@
 
 
 import * as ajax from "./common/ajax.js";
+import { alertError,alertInfo, alertWarning } from "./common/msgBox.js";
 
 /**
  * 로그인 관련 js
@@ -23,9 +24,18 @@ const login = function(){
         //로그인 버튼 이벤트
         $("#button-login").on("click",login);
 
+
+        $.validator.addMethod("notDefault", function(value, element) {
+            return value !== "0";
+        }, "[지점]을 선택해주세요.");
+
         //jquery validate
         $("#login-form").validate({
             rules:{
+                jan:{
+                    required:true,
+                    notDefault: true
+                },
                 id:{
                     required: true,
                 },
@@ -34,6 +44,9 @@ const login = function(){
                 }
             },
             messages:{
+                jan:{
+                    required:"[지점]을 선택하세요.",
+                },
                 id:{
                     required: "[아이디]는 필수 입력입니다.",
                 },
@@ -45,6 +58,24 @@ const login = function(){
                 element.after(error);
             }
         });
+
+
+        let params = {
+            uri: `system/agents`
+        }
+        
+        ajax.getAjax(params,true).then((data)=>{
+
+            const agentList = data['agentList'];
+
+            agentList.forEach((element,index) => {
+                $("#jan").append(`<option ${index===0?'selected':''} value="${element.agtJan}">${element.agtName}</option>`);
+            });
+
+        }).catch((e)=>{console.debug(e);});
+
+
+
     }
     
     //로그인 처리
